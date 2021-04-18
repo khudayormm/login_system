@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lumen/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <title>Authentication page</title>
+    <style>
+        INPUT[type="password"]{
+            font-family: "Verdana,sans-serif";
+            height:28px;
+            font-size:19px;
+        }
+    </style>
+</head>
+<body>
+  <%- include('./navbar') -%>
+    <div class="container py-4" style="margin-top: 2%;">
+        <form id="form" action="login" method="POST">
+            <div class="card border-info mb-3 mx-auto" style="max-width: 30rem;">
+                <div class="card-header text-center">
+                    <h2 style="font-family: 'Jost', sans-serif;">AUTHENTICATION  </h2>
+                </div>
+                <div class="card-body text-left" style="font-family: 'Jost', sans-serif; font-size: 20px;">
+                    <div class="form-group">
+                        <label for="e">Email</label>
+                        <input type="email" style="height: 50px; font-size: 20px;" data-error="#errNm2"
+                          class="form-control" name="email" id="e" aria-describedby="helpId" placeholder="Email">
+                        <small id="errNm2" class="form-text text-danger">
+                          <% if (typeof emailError != 'undefined') { %>
+                            <%= emailError %>
+                        <% } %>
+                        </small>
+                                              
+                      </div>
+                      <div class="form-group">
+                        <label for="p">Password</label>
+                        <input type="password" style="height: 50px; font-size: 20px;" data-error="#errNm3"
+                          class="form-control" name="password" id="p" aria-describedby="helpId" placeholder="Password">
+                        <small id="errNm3" class="form-text text-danger">
+                          <% if (typeof matchError != 'undefined') { %>
+                            <%= matchError %>
+                            <% } %>                          
+                        </small>
+                      </div>
+                      <hr>
+                      <div class="col">
+                            <input style="width: 180px;" type="submit" value="LOGIN" class="btn btn-primary btn-lg">
+                            <a style="width: 180px;" class="btn btn-outline-info btn-lg" href="/register" role="button">REGISTRATION</a>
+                        </div>
+                </div>
+              </div>
+        </form>
+    </div>
+
+    <script>
+    jQuery(function($) {
+      $('#form').validate({
+        rules: {
+            email: {
+                required: true,
+                email: true,
+                minlength: 3,
+                maxlength: 30
+            },
+            password: {
+                required: true,
+                minlength: 6
+            }
+        },
+        messages: {
+            email: {
+                required: "Emailni kiriting",
+                email: "Iltimos emailni to'g'ri kiriting!",
+                minlength: "Satr 3 ta belgidan katta bo'lishi kerak",
+                maxlength: "Satr 30 ta belgidan kam bo'lishi kerak"
+            },
+            password: {
+                required: "Parol kiriting",
+                minlength: "Parol 6 ta belgidan katta bo'lishi kerak"
+            }
+        },
+
+        errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+              $(placement).append(error)
+            } else {
+              error.insertAfter(element);
+            }
+        },
+
+    });
+    });
+    </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>
